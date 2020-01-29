@@ -20,6 +20,8 @@ namespace API.Controllers
         public async Task<ActionResult<List<Candidato>>> GetAsync([FromServices] DataContext context)
         {
             List<Candidato> candidato = await context.Candidatos.ToListAsync();
+            candidato.Add(new Candidato{ID = 1,Nome="Thiago",Apelido="TT",CPF = "025"});
+            candidato.Add(new Candidato { ID = 2, Nome = "Ana", Apelido = "Ana", CPF = "026" });
             return candidato;
         }
 

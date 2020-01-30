@@ -13,9 +13,16 @@ namespace API.Controllers
     [Route("v1/candidato")]
     public class CandidatoController : ControllerBase
     {
+
+        #region getCandidato
+        /// <summary>
+        /// Serve pra pegar o Candidato
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("")]
-
+        
         public async Task<ActionResult<List<Candidato>>> GetAsync([FromServices] DataContext context)
         {
             List<Candidato> candidato = await context.Candidatos.ToListAsync();
@@ -23,7 +30,22 @@ namespace API.Controllers
             //candidato.Add(new Candidato { Id = 2, Nome = "Ana", Apelido = "Ana", CPF = "026" });
             return candidato;
         }
+        #endregion
 
+
+        [HttpGet]
+        [Route("{Nomecidade}")]
+        public ActionResult<List<String>> CandidatosCidade([FromServices] DataContext context,string Nomecidade)
+        {
+            var candidato_cidade = context.Candidatos.Where(x => x.cidade.Nome.Equals(Nomecidade)).Select(x => x.Nome).ToList();
+            return candidato_cidade;
+        }
+
+        /// <summary>
+        /// Pega pela cidade dos candidato
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("")]
         public async Task<ActionResult<List<Candidato>>> Getcidade([FromServices] DataContext context)
@@ -58,8 +80,5 @@ namespace API.Controllers
             }
         }
         #endregion
-
-
-
     }
 }

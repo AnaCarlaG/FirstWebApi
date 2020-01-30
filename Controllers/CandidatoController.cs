@@ -47,7 +47,7 @@ namespace API.Controllers
         /// <param name="context"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("")]
+        [Route("cidade")]
         public async Task<ActionResult<List<Candidato>>> Getcidade([FromServices] DataContext context)
         {
             var cidade = await context.Candidatos.Include(cidade => cidade.cidade).ToListAsync();

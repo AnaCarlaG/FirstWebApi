@@ -9,8 +9,8 @@ namespace API.Models
     public class Cidade
     {
         [Key]
-        public int IDCIDADE { get; set; }
-        public string NOME { get; set; }
+        public int IdCidade { get; set; }
+        public string Nome { get; set; }
         public string UF { get; set; }
 
     }

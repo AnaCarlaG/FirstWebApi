@@ -13,26 +13,35 @@ namespace API.Controllers
     [Route("v1/candidato")]
     public class CandidatoController : ControllerBase
     {
-
         [HttpGet]
         [Route("")]
 
         public async Task<ActionResult<List<Candidato>>> GetAsync([FromServices] DataContext context)
         {
             List<Candidato> candidato = await context.Candidatos.ToListAsync();
-            candidato.Add(new Candidato{ID = 1,Nome="Thiago",Apelido="TT",CPF = "025"});
-            candidato.Add(new Candidato { ID = 2, Nome = "Ana", Apelido = "Ana", CPF = "026" });
+            //candidato.Add(new Candidato { Id = 1, Nome = "Thiago", Apelido = "TT", CPF = "025" });
+            //candidato.Add(new Candidato { Id = 2, Nome = "Ana", Apelido = "Ana", CPF = "026" });
             return candidato;
         }
 
-        //[HttpGet]
-        //[Route("{id:int}")]
-        //public async Task<ActionResult<Candidato>> GetById([FromServices] DataContext context, int id)
-        //{
-        //    var candidato = await context.Candidatos.Include(x => x.Cidade).AsNoTracking().FirstOrDefaultAsync(x => x.IDCIDADE == id);
-        //    return candidato;
-        //}
+        [HttpGet]
+        [Route("")]
+        public async Task<ActionResult<List<Candidato>>> Getcidade([FromServices] DataContext context)
+        {
+            var cidade = await context.Candidatos.Include(cidade => cidade.cidade).ToListAsync();
+            return cidade;
+        }
 
+        #region Post Candidato
+        /// <summary>
+        /// Serve para add no um Candidato
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="model"></param>
+        /// <returns>
+        /// 200 - ok
+        /// 400 - Bad Request
+        /// </returns> 
         [HttpPost]
         [Route("")]
         public async Task<ActionResult<Candidato>> Post([FromServices] DataContext context, [FromBody] Candidato model)
@@ -48,6 +57,9 @@ namespace API.Controllers
                 return BadRequest(ModelState);
             }
         }
-    }
+        #endregion
 
+
+
+    }
 }

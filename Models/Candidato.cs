@@ -9,16 +9,13 @@ namespace API.Models
     public class Candidato
     {
         [Key]
-        public int ID { get; set; }
+        public int Id { get; set; }
         [Required]
         public string Nome { get; set; }
         [Required]
         public string Apelido { get; set; }
         [Required]
         public string CPF { get; set; }
-        public string Estado { get; set; }
-        public string Cidade { get; set; }
-        public string UF { get; set; }
         public string Bairro { get; set; }
        
         public string Logradouro { get; set; }
@@ -31,7 +28,7 @@ namespace API.Models
         public string Celular { get; set; }
         public string CelularOpcional { get; set; }
 
-        public int IDCIDADE { get; set; }
-        //public Cidade cidade { get; set; }
+        public int IdCidade { get; set; }
+        public Cidade cidade { get; set; }
     }
 }

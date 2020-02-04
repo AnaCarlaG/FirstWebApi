@@ -11,7 +11,7 @@ namespace API.Controllers
 {
     [ApiController]
     [Route("v1/candidato")]
-    public class CandidatoController : ControllerBase
+    public class CandidatoController : Controller
     {
 
         #region getCandidato
@@ -32,29 +32,7 @@ namespace API.Controllers
         }
         #endregion
 
-
-        [HttpGet]
-        [Route("{Nomecidade}")]
-        public ActionResult<List<String>> CandidatosCidade([FromServices] DataContext context,string Nomecidade)
-        {
-            var candidato_cidade = context.Candidatos.Where(x => x.cidade.Nome.Equals(Nomecidade)).Select(x => x.Nome).ToList();
-            return candidato_cidade;
-        }
-
-        /// <summary>
-        /// Pega pela cidade dos candidato
-        /// </summary>
-        /// <param name="context"></param>
-        /// <returns></returns>
-        [HttpGet]
-        [Route("cidade")]
-        public async Task<ActionResult<List<Candidato>>> Getcidade([FromServices] DataContext context)
-        {
-            var cidade = await context.Candidatos.Include(cidade => cidade.cidade).ToListAsync();
-            return cidade;
-        }
-
-        #region Post Candidato
+  #region Post Candidato
         /// <summary>
         /// Serve para add no um Candidato
         /// </summary>
@@ -80,5 +58,36 @@ namespace API.Controllers
             }
         }
         #endregion
+
+        #region Put Candidato
+        //[HttpPost]
+        //[Route("")]
+        //public ActionResult<List<>> Candidato_Put ([FromServices] DataContext context,[FromBody] Candidato model)
+        //{
+             
+        //}
+        #endregion
+        [HttpGet]
+        [Route("{Nomecidade}")]
+        public ActionResult<List<String>> CandidatosCidade([FromServices] DataContext context,string Nomecidade)
+        {
+            var candidato_cidade = context.Candidatos.Where(x => x.cidade.Nome.Equals(Nomecidade)).Select(x => x.Nome).ToList();
+            return candidato_cidade;
+        }
+
+        /// <summary>
+        /// Pega pela cidade dos candidato
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("cidade")]
+        public async Task<ActionResult<List<Candidato>>> Getcidade([FromServices] DataContext context)
+        {
+            var cidade = await context.Candidatos.Include(cidade => cidade.cidade).ToListAsync();
+            return cidade;
+        }
+
+      
     }
 }
